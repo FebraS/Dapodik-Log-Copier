@@ -1,3 +1,9 @@
+/*
+ *  Dapodik-Log-Copier/source.c
+ *
+ *  Copyright (C) 2024  Febra S
+ */
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
