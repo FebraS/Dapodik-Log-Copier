@@ -1,3 +1,4 @@
+// GPL-3.0 license
 /*
  *  Dapodik-Log-Copier/source.c
  *
