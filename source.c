@@ -9,7 +9,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <errno.h>
-#include <unistd.h>
+#include <io.h>
 
 #define MAX_PATH_LENGTH 256
 
@@ -20,8 +20,8 @@ int main() {
     char activeFolder[MAX_PATH_LENGTH];
 
   // Get the current working directory
-  if (getcwd(activeFolder, MAX_PATH_LENGTH) == NULL) {
-    perror("getcwd");
+  if (_getcwd(activeFolder, MAX_PATH_LENGTH) == NULL) {
+    perror("_getcwd");
     return 1;
   }
 
@@ -36,7 +36,7 @@ int main() {
     strcat(sourceFile, sourceFiles[i]);
 
     // Check if the source file exists
-    if (access(sourceFile, F_OK) == 0) {
+    if (_access(sourceFile, F_OK) == 0) {
       // Construct the destination file path (current working directory + source file name)
       char destinationFile[MAX_PATH_LENGTH];
       strcpy(destinationFile, activeFolder);
