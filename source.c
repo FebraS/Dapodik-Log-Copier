@@ -36,7 +36,7 @@ int main() {
     strcat(sourceFile, sourceFiles[i]);
 
     // Check if the source file exists
-    if (_access(sourceFile, F_OK) == 0) {
+    if (_access(sourceFile, 0) == 0) {
       // Construct the destination file path (current working directory + source file name)
       char destinationFile[MAX_PATH_LENGTH];
       strcpy(destinationFile, activeFolder);
