@@ -19,34 +19,43 @@ int main() {
     char sourceFile[MAX_PATH_LENGTH];
     char activeFolder[MAX_PATH_LENGTH];
 
-    // Get the current working directory
-    if (getcwd(activeFolder, MAX_PATH_LENGTH) == NULL) {
-        perror("getcwd");
-        return 1;
-    }
+  // Get the current working directory
+  if (getcwd(activeFolder, MAX_PATH_LENGTH) == NULL) {
+    perror("getcwd");
+    return 1;
+  }
 
+  // Define source log files (access.log and ssl_request.log)
+  const char *sourceFiles[] = {"access.log", "ssl_request.log"};
+  int numFiles = sizeof(sourceFiles) / sizeof(sourceFiles[0]);
+
+  // Loop through each source file
+  for (int i = 0; i < numFiles; ++i) {
     // Specify the source log file path
-    strcpy(sourceFile, "C:\\Program Files (x86)\\Dapodik\\webserver\\logs\\access.log");
+    strcpy(sourceFile, "C:\\Program Files (x86)\\Dapodik\\webserver\\logs\\");
+    strcat(sourceFile, sourceFiles[i]);
 
     // Check if the source file exists
     if (access(sourceFile, F_OK) == 0) {
-        // Construct the destination file path (current working directory + source file name)
-        char destinationFile[MAX_PATH_LENGTH];
-        strcpy(destinationFile, activeFolder);
-        strcat(destinationFile, "\\access.log");
+      // Construct the destination file path (current working directory + source file name)
+      char destinationFile[MAX_PATH_LENGTH];
+      strcpy(destinationFile, activeFolder);
+      strcat(destinationFile, "\\");
+      strcat(destinationFile, sourceFiles[i]);
 
-        // Copy the source file to the destination file
-        if (copy(sourceFile, destinationFile) == 0) {
-            printf("Log file copied successfully to '%s'!\n", destinationFile);
-        } else {
-            perror("copy");
-            return 1;
-        }
+      // Copy the source file to the destination file
+      if (copy(sourceFile, destinationFile) == 0) {
+        printf("Log file '%s' copied successfully to '%s'!\n", sourceFile, destinationFile);
+      } else {
+        perror("copy");
+        return 1;
+      }
     } else {
-        printf("Source log file '%s' does not exist.\n", sourceFile);
+      printf("Source log file '%s' does not exist.\n", sourceFile);
     }
+  }
 
-    return 0;
+  return 0;
 }
 
 // Function to copy a file (implementation depends on your system)
